@@ -65,7 +65,7 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.33f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/ModularFirstPersonController/FirstPersonController/FirstPersonController.cs" />
+    <Compile Include="Assets/FirstPersonController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
