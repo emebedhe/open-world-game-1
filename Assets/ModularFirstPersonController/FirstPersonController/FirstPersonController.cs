@@ -281,23 +281,3 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 }
-
-
-
-// Custom Editor
-#if UNITY_EDITOR
-    [CustomEditor(typeof(FirstPersonController)), InitializeOnLoadAttribute]
-    public class FirstPersonControllerEditor : Editor
-    {
-    FirstPersonController fpc;
-    SerializedObject SerFPC;
-
-    private void OnEnable()
-    {
-        fpc = (FirstPersonController)target;
-        SerFPC = new SerializedObject(fpc);
-    }
-
-}
-
-#endif
