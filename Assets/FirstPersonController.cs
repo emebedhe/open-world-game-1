@@ -1,13 +1,11 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if UNITY_EDITOR
-    using UnityEditor;
-    using System.Net;
-#endif
+using UnityEditor;
+using System.Net;
+
 
 public class FirstPersonController : MonoBehaviour
 {
@@ -38,7 +36,7 @@ public class FirstPersonController : MonoBehaviour
 
     #region Sprint
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public float sprintSpeed = 7f;
+    public float sprintSpeed = 70f;
     public float sprintDuration = 5f;
     public float sprintCooldown = .5f;
     public float sprintFOV = 80f;
@@ -122,25 +120,22 @@ public class FirstPersonController : MonoBehaviour
 
         #region Sprint
 
-            if(isSprinting)
-            {
-                playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
+        if (isSprinting)
+        {
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
 
-                sprintRemaining -= 1 * Time.deltaTime;
-                if (sprintRemaining <= 0)
-                {
-                    isSprinting = false;
-                    isSprintCooldown = true;
-                }
-            }
-            else
+            sprintRemaining -= 1 * Time.deltaTime;
+            if (sprintRemaining <= 0)
             {
-                // Regain sprint while not sprinting
-                sprintRemaining = Mathf.Clamp(sprintRemaining += 1 * Time.deltaTime, 0, sprintDuration);
+                isSprinting = false;
+                isSprintCooldown = true;
             }
-
-            // Handles sprint cooldown 
-            // When sprint remaining == 0 stops sprint ability until hitting cooldown
+                Debug.Log(sprintRemaining);
+            }
+        else
+        {
+            sprintRemaining = Mathf.Clamp(sprintRemaining += 1 * Time.deltaTime, 0, sprintDuration);
+        }
             if(isSprintCooldown)
             {
                 sprintCooldown -= 1 * Time.deltaTime;
@@ -252,7 +247,6 @@ public class FirstPersonController : MonoBehaviour
             isGrounded = false;
         }
     }
-
 
     private void Crouch()
     {
