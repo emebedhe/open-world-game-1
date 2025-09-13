@@ -10,6 +10,7 @@ using System.Net;
 public class FirstPersonController : MonoBehaviour
 {
     private Rigidbody rb;
+    public GameObject inDialogue;
 
     #region Camera Movement Variables
 
@@ -130,7 +131,7 @@ public class FirstPersonController : MonoBehaviour
                 isSprinting = false;
                 isSprintCooldown = true;
             }
-                Debug.Log(sprintRemaining);
+                // Debug.Log(sprintRemaining);
             }
         else
         {
@@ -185,8 +186,12 @@ public class FirstPersonController : MonoBehaviour
     void FixedUpdate()
     {
         #region Movement
-            // Calculate how fast we should be moving
-        Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        // Calculate how fast we should be moving
+        Vector3 targetVelocity = Vector3.zero;
+        if (!inDialogue.activeSelf)
+        {
+            targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        }
 
         // All movement calculations while sprint is active
         if (Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
