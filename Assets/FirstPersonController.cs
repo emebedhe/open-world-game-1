@@ -131,11 +131,12 @@ public class FirstPersonController : MonoBehaviour
                 isSprinting = false;
                 isSprintCooldown = true;
             }
-                // Debug.Log(sprintRemaining);
-            }
+            // Debug.Log(sprintRemaining);
+        }
         else
         {
             sprintRemaining = Mathf.Clamp(sprintRemaining += 1 * Time.deltaTime, 0, sprintDuration);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView,fov,sprintFOVStepTime * Time.deltaTime);
         }
             if(isSprintCooldown)
             {
