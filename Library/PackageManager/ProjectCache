@@ -5,7 +5,11 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< HEAD
       ticks: 638935796049080596
+=======
+      ticks: 638923114246060050
+>>>>>>> 2c97ea5ebeb50d5bc03f59263be792074562d884
     m_Hash: 4127986491
   m_LockFileStatus:
     m_FilePath: C:/Users/tobia/open-world-game-1/Packages/packages-lock.json
@@ -13,7 +17,11 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< HEAD
       ticks: 638935796049105555
+=======
+      ticks: 638923114246087855
+>>>>>>> 2c97ea5ebeb50d5bc03f59263be792074562d884
     m_Hash: 81114269
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
