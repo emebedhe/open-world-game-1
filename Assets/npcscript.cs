@@ -85,7 +85,7 @@ public class npcscript : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && inDialogue.activeSelf == false)
         {
             Debug.Log("Player entered trigger zone.");
             text.SetActive(true);
