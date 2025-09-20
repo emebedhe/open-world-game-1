@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 469941306}
   - component: {fileID: 469941305}
   m_Layer: 5
-  m_Name: healthbar_rotation (4)
+  m_Name: healthborder_bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 1204477839}
   - component: {fileID: 1204477838}
   m_Layer: 5
-  m_Name: healthbar_rotation (3)
+  m_Name: healthborder_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
