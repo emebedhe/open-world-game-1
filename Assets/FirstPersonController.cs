@@ -10,7 +10,9 @@ using System.Net;
 public class FirstPersonController : MonoBehaviour
 {
     private Rigidbody rb;
+    private int health = 100;
     public GameObject inDialogue;
+
 
     #region Camera Movement Variables
 
@@ -36,6 +38,8 @@ public class FirstPersonController : MonoBehaviour
     public float maxVelocityChange = 10f;
 
     #region Sprint
+    public GameObject sprintPanel;
+    RectTransform rt;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public float sprintSpeed = 70f;
     public float sprintDuration = 5f;
@@ -88,7 +92,8 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
-        if(lockCursor)
+        rt = sprintPanel.GetComponent<RectTransform>();
+        if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -120,7 +125,9 @@ public class FirstPersonController : MonoBehaviour
         #endregion
 
         #region Sprint
-
+        int randomValue = Random.Range(1, 100);
+        rt.sizeDelta = new Vector2(rt.sizeDelta.x, randomValue);
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, randomValue/2);
         if (isSprinting)
         {
             playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
@@ -136,7 +143,7 @@ public class FirstPersonController : MonoBehaviour
         else
         {
             sprintRemaining = Mathf.Clamp(sprintRemaining += 1 * Time.deltaTime, 0, sprintDuration);
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView,fov,sprintFOVStepTime * Time.deltaTime);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, fov, sprintFOVStepTime * Time.deltaTime);
         }
             if(isSprintCooldown)
             {

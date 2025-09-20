@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 public class enemyscript : MonoBehaviour
 {
     public int health = 10;
@@ -9,6 +10,7 @@ public class enemyscript : MonoBehaviour
     void Start()
     {
         rt = healthbar.GetComponent<RectTransform>();
+        healthbar.GetComponent<Image>().color = Color.green;
     }
     void Update()
     {
@@ -29,6 +31,7 @@ public class enemyscript : MonoBehaviour
                         Debug.Log("GameObject " + hit.collider.gameObject.name + " clicked!");
                         health--;
                         Debug.Log(health);
+                        healthbar.GetComponent<Image>().color = Color.Lerp(Color.red, Color.green, health / 10.0f);
                         rt.offsetMin = new Vector2(10 - health, rt.offsetMin.y);
                         if (health <= 0)
                         {
