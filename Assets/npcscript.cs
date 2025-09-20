@@ -48,34 +48,7 @@ public class npcscript : MonoBehaviour
                 dialogueCanvas.GetComponentInChildren<TextMeshProUGUI>().text = Dialogues[dialogueIndex];
                 nextDialogue = false;
             }
-            // Debug.Log(dialogueIndex);
-            // if (nextDialogue)
-            // {
-            //     if (dialogueIndex <= Dialogues.Count - 1 && dialogueIndex > 0)
-            //     {
-            //         dialogueIndex++;
-            //         dialogueCanvas.GetComponentInChildren<TextMeshProUGUI>().text = Dialogues[dialogueIndex];
-            //         nextDialogue = false;
-            //         Invoke("NextDialogue", 3f);
-            //     }
-            //     else if (dialogueIndex == Dialogues.Count)
-            //     {
-            //         dialogueCanvas.SetActive(false);
-            //         inDialogue.SetActive(false);
-            //         dialogueIndex = 0;
-            //         nextDialogue = false;
-            //         text.SetActive(true);
-            //         inDialogue.SetActive(false);
-            //     }
-            //     else
-            //     {
-            //         dialogueIndex = 1;
-            //         nextDialogue = false;
-            //         text.SetActive(false);
-            //         dialogueCanvas.SetActive(true);
-            //         inDialogue.SetActive(true);
-            //     }
-            // }
+            
             Invoke("NextDialogue", 3f);
         }
     }
@@ -90,6 +63,7 @@ public class npcscript : MonoBehaviour
             Debug.Log("Player entered trigger zone.");
             text.SetActive(true);
             insideTrigger = true;
+            other.GetComponent<BoxCollider>().size = new Vector3(3.5f, 2f, 3.5f);
         }
     }
     void OnTriggerExit(Collider other)
@@ -99,6 +73,7 @@ public class npcscript : MonoBehaviour
             Debug.Log("Player exited trigger zone.");
             text.SetActive(false);
             insideTrigger = false;
+            other.GetComponent<BoxCollider>().size = new Vector3(3f, 2f, 3f);
         }
     }
 }
