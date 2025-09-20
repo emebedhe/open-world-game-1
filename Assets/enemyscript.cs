@@ -4,6 +4,7 @@ public class enemyscript : MonoBehaviour
 {
     public int health = 10;
     public GameObject healthbar;
+    public GameObject enemy;
     public GameObject healthbar_rotation;
     public GameObject border;
     RectTransform rt;
@@ -14,6 +15,12 @@ public class enemyscript : MonoBehaviour
     }
     void Update()
     {
+        #region Enemy Cloning
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            var clone = Instantiate(enemy, enemy.transform.position, enemy.transform.rotation);
+        }
+        #endregion
         transform.LookAt(Camera.main.transform);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         if (Input.GetMouseButtonDown(0))
