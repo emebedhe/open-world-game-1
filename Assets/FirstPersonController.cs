@@ -125,11 +125,11 @@ public class FirstPersonController : MonoBehaviour
         #endregion
 
         #region Sprint
-        int randomValue = Random.Range(1, 100);
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x, randomValue);
-        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, randomValue/2);
+        rt.sizeDelta = new Vector2(rt.sizeDelta.x, sprintRemaining * 20);
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, sprintRemaining * 20/2);
         if (isSprinting)
         {
+            rt.gameObject.SetActive(true);
             playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
 
             sprintRemaining -= 1 * Time.deltaTime;
@@ -140,8 +140,13 @@ public class FirstPersonController : MonoBehaviour
             }
             // Debug.Log(sprintRemaining);
         }
+        else if (sprintRemaining == sprintDuration)
+        {
+            rt.gameObject.SetActive(false);
+        }
         else
         {
+            rt.gameObject.SetActive(true);
             sprintRemaining = Mathf.Clamp(sprintRemaining += 1 * Time.deltaTime, 0, sprintDuration);
             playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, fov, sprintFOVStepTime * Time.deltaTime);
         }

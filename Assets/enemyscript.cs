@@ -1,20 +1,29 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 public class enemyscript : MonoBehaviour
 {
     public int health = 10;
+    public GameObject player;
     public GameObject healthbar;
     public GameObject enemy;
     public GameObject healthbar_rotation;
     public GameObject border;
+    NavMeshAgent agent;
     RectTransform rt;
+    Rigidbody rb;
     void Start()
     {
         rt = healthbar.GetComponent<RectTransform>();
         healthbar.GetComponent<Image>().color = Color.green;
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
     }
     void Update()
     {
+        #region Movement
+        agent.SetDestination(player.transform.position);
+        #endregion
         #region Enemy Cloning
         if (Input.GetKeyDown(KeyCode.C))
         {
