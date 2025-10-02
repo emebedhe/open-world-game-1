@@ -796,6 +796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
+  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -883,6 +884,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &705507996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e269f2a8d394598ba4677572b9fc86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerate: 1
 --- !u!1 &715150938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,6 +2414,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 595238951497231553, guid: 2e34d5d3996ed44c08fb7ed5bf771563, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2805756483249387888, guid: 2e34d5d3996ed44c08fb7ed5bf771563, type: 3}
       propertyPath: m_Name
       value: FirstPersonController
