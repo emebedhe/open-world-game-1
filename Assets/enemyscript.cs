@@ -20,6 +20,7 @@ public class enemyscript : MonoBehaviour
         }
         #endregion
         transform.LookAt(Camera.main.transform);
+        //transform.position = transform.forward * 2;
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         if (Input.GetMouseButtonDown(0))
         {
