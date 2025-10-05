@@ -10,7 +10,9 @@ using System.Net;
 public class FirstPersonController : MonoBehaviour
 {
     private Rigidbody rb;
+    private int health = 100;
     public GameObject inDialogue;
+
 
     #region Camera Movement Variables
 
@@ -36,6 +38,8 @@ public class FirstPersonController : MonoBehaviour
     public float maxVelocityChange = 10f;
 
     #region Sprint
+    public GameObject sprintPanel;
+    RectTransform rt;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public float sprintSpeed = 70f;
     public float sprintDuration = 5f;
@@ -57,8 +61,8 @@ public class FirstPersonController : MonoBehaviour
     public float jumpPower = 5f;
 
     // Internal Variables
-    private bool isGrounded = false;
-
+    public bool isGrounded = false;
+    private float lastframey = 0f;
     #endregion
 
     #region Crouch
@@ -72,6 +76,10 @@ public class FirstPersonController : MonoBehaviour
 
     #endregion
     #endregion
+    public float slopeLimit = 45f;
+    public float slideSpeed = 5f;
+    private bool isSliding = false;
+    private Vector3 slideVelocity;
 
     private void Awake()
     {
@@ -88,7 +96,8 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
-        if(lockCursor)
+        rt = sprintPanel.GetComponent<RectTransform>();
+        if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -120,9 +129,11 @@ public class FirstPersonController : MonoBehaviour
         #endregion
 
         #region Sprint
-
+        rt.sizeDelta = new Vector2(rt.sizeDelta.x, sprintRemaining * 20);
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, sprintRemaining * 20/2);
         if (isSprinting)
         {
+            rt.gameObject.SetActive(true);
             playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
 
             sprintRemaining -= 1 * Time.deltaTime;
@@ -133,10 +144,15 @@ public class FirstPersonController : MonoBehaviour
             }
             // Debug.Log(sprintRemaining);
         }
+        else if (sprintRemaining == sprintDuration)
+        {
+            rt.gameObject.SetActive(false);
+        }
         else
         {
+            rt.gameObject.SetActive(true);
             sprintRemaining = Mathf.Clamp(sprintRemaining += 1 * Time.deltaTime, 0, sprintDuration);
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView,fov,sprintFOVStepTime * Time.deltaTime);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, fov, sprintFOVStepTime * Time.deltaTime);
         }
             if(isSprintCooldown)
             {
@@ -186,6 +202,7 @@ public class FirstPersonController : MonoBehaviour
 
     void FixedUpdate()
     {
+        SlideCheck();
         #region Movement
         // Calculate how fast we should be moving
         Vector3 targetVelocity = Vector3.zero;
@@ -253,7 +270,28 @@ public class FirstPersonController : MonoBehaviour
             isGrounded = false;
         }
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        // Check if player is on ground
+    }
+    private void SlideCheck()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 11f)) // Adjust raycast distance
+        {
+            Debug.Log("bruh");
+            float angle = Vector3.Angle(Vector3.up, hit.normal);
 
+            if (angle > slopeLimit)
+            {
+                // Calculate slide direction along the slope
+                Vector3 slideDirection = Vector3.ProjectOnPlane(Vector3.down, hit.normal).normalized;
+                rb.AddForce(slideDirection * slideSpeed, ForceMode.Acceleration);
+                rb.AddForce(Vector3.down * slideSpeed);
+                Debug.Log("Sliding");
+            }
+        }
+    }
     private void Crouch()
     {
         if (isCrouched)

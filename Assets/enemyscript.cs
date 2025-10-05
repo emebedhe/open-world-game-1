@@ -1,18 +1,29 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.AI;
 public class enemyscript : MonoBehaviour
 {
     public int health = 10;
+    public GameObject player;
     public GameObject healthbar;
     public GameObject enemy;
     public GameObject healthbar_rotation;
     public GameObject border;
+    NavMeshAgent agent;
     RectTransform rt;
+    Rigidbody rb;
     void Start()
     {
         rt = healthbar.GetComponent<RectTransform>();
+        healthbar.GetComponent<Image>().color = Color.green;
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
     }
     void Update()
     {
+        #region Movement
+        agent.SetDestination(player.transform.position);
+        #endregion
         #region Enemy Cloning
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -37,6 +48,7 @@ public class enemyscript : MonoBehaviour
                         Debug.Log("GameObject " + hit.collider.gameObject.name + " clicked!");
                         health--;
                         Debug.Log(health);
+                        healthbar.GetComponent<Image>().color = Color.Lerp(Color.red, Color.green, health / 10.0f);
                         rt.offsetMin = new Vector2(10 - health, rt.offsetMin.y);
                         if (health <= 0)
                         {

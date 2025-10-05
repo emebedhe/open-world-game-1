@@ -10,6 +10,7 @@ public class npcscript : MonoBehaviour
     private int dialogueIndex = 0;
     private bool nextDialogue = false;
     private bool insideTrigger = false;
+    Rigidbody rb;
     void Start()
     {
         Dialogues.Add(".  ");
@@ -18,6 +19,7 @@ public class npcscript : MonoBehaviour
         Dialogues.Add("Beware of the dangers that lurk in the shadows.");
         Dialogues.Add("May your journey be safe and prosperous.");
         text.SetActive(false);
+        rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
@@ -48,7 +50,7 @@ public class npcscript : MonoBehaviour
                 dialogueCanvas.GetComponentInChildren<TextMeshProUGUI>().text = Dialogues[dialogueIndex];
                 nextDialogue = false;
             }
-            
+
             Invoke("NextDialogue", 3f);
         }
     }
